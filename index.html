@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Document</title>
+    
+</head>
+<body>
+    <!-- 타이머 필드 -->
+    <div class="timer-field">
+        <div class="timer-view">
+            00:000
+        </div>
+    </div>
+    <!-- 버튼 필드  -->
+    <div class="control-field">
+        <!-- 타이머 시작 전 -->
+        <!-- start -->
+        <div class="control-boundary" id="initialized">
+            <button class="button" data-action="start" id="start">start</button>
+        </div>
+        <!-- 타이머 시작 됐을 때-->
+        <!-- pause / reset / lap -->
+        <div class="control-boundary hidden" id="started">
+            <button class="button" data-action="pause">pause</button>
+            <button class="button" data-action="reset">reset</button>
+            <button class="button" data-action="lap">lap</button>
+        </div>
+        <!-- 타이머 중지 됐을 때-->
+        <!-- restart / reset -->
+        <div class="control-boundary hidden" id="paused">
+            <button class="button" data-action="restart">restart</button>
+            <button class="button" data-action="reset">reset</button>
+        </div>
+    </div>
+    <script src="./index.js" type="module"></script>
+
+</body>
+</html>
