@@ -6,6 +6,10 @@
     font-size: 20px;
 }
 
+.timer-view.req {
+    background-color: pink;
+}
+
 .app {
     display: flex;
     flex-direction: row;

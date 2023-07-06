@@ -1,10 +1,12 @@
 const time = {
     startTime: null,
     timerId: null,
+    timerId2: null,
     prevLapTime: null 
 }   
 
 const timerView = document.querySelector('.timer-view');
+const timerView2 = document.querySelector('#timer-view2');
 const lapField = document.querySelector('.lap-field');
 
 function handleControlBoundary (initializedShow, startedShow, pausedShow) {
@@ -38,17 +40,16 @@ function start () {
 
     time.timerId = timerId;
 }
+
 function startRequestAnimationFrame () {
-    console.log('start');
-    time.startTime = new Date();
+    if (!time.startTime) {
+        console.log('start');
+        time.startTime = new Date();
+    }
 
-    const timerId = setInterval(()=>{
-        timerView.innerHTML = formatTime(getTime(new Date()));
-    }, 1);
-
-    time.timerId = timerId;
-
-    requestAnimationFrame(startRequestAnimationFrame);
+    timerView2.innerHTML = formatTime(getTime(new Date()));
+    const timerId = requestAnimationFrame(startRequestAnimationFrame);
+    time.timerId2 = timerId;
 }
 
 function pause () {
@@ -88,8 +89,13 @@ function handleStart() {
     handleControlBoundary(false, true, false);
 }
 function handleStartRequestAnimationFrame() {
-    start();
+    startRequestAnimationFrame();
     handleControlBoundary(false, true, false);
+}
+function handleStartAll() {
+    start();
+    startRequestAnimationFrame();
+    // handleControlBoundary(false, true, false);
 }
 
 function handlePause() {
@@ -114,6 +120,9 @@ function control (event) {
             break;
         case 'start-requestAnimationFrame':
             handleStartRequestAnimationFrame();
+            break;
+        case 'start-all':
+            handleStartAll();
             break;
         case 'pause':
             handlePause();
