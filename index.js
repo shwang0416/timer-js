@@ -1,9 +1,11 @@
 const time = {
     startTime: null,
     timerId: null,
+    prevLapTime: null 
 }   
 
 const timerView = document.querySelector('.timer-view');
+const lapField = document.querySelector('.lap-field');
 
 function handleControlBoundary (initializedShow, startedShow, pausedShow) {
     const initialized = document.getElementById('initialized');
@@ -21,9 +23,9 @@ function getTime(currentTime) {
 }
 
 function formatTime(time) {
-    const minutes = parseInt(time / 3600).toString().padStart(2,'0');
-    const seconds = time - (minutes * 3600).toString().padStart(3,'0');
-    return `${minutes}:${seconds}`;
+    const seconds = parseInt(time / 1000).toString().padStart(2,'0');
+    const miliseconds = time - (seconds * 1000).toString().padStart(3,'0');
+    return `${seconds}:${miliseconds}`;
 }
 
 function start () {
@@ -36,12 +38,25 @@ function start () {
 
     time.timerId = timerId;
 }
+function startRequestAnimationFrame () {
+    console.log('start');
+    time.startTime = new Date();
+
+    const timerId = setInterval(()=>{
+        timerView.innerHTML = formatTime(getTime(new Date()));
+    }, 1);
+
+    time.timerId = timerId;
+
+    requestAnimationFrame(startRequestAnimationFrame);
+}
 
 function pause () {
     if(!time.timerId) {
         throw new Error('timerId가 없음');
     }
     clearTimeout(time.timerId);
+    cancelAnimationFrame(time.timerId);
 
 }
 
@@ -55,6 +70,9 @@ function reset () {
 }
 function lap () {
     console.log('lap');
+    const diff = new Date() - time.prevLapTime;
+
+    lapField.innerHTML = `<div>${diff}</div>`
 }
 
 function restart () {
@@ -66,6 +84,10 @@ function restart () {
 
 
 function handleStart() {
+    start();
+    handleControlBoundary(false, true, false);
+}
+function handleStartRequestAnimationFrame() {
     start();
     handleControlBoundary(false, true, false);
 }
@@ -87,8 +109,11 @@ function control (event) {
     const action = event.target.dataset.action;
 
     switch(action) {
-        case 'start':
+        case 'start-setInterval':
             handleStart();
+            break;
+        case 'start-requestAnimationFrame':
+            handleStartRequestAnimationFrame();
             break;
         case 'pause':
             handlePause();
