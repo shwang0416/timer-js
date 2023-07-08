@@ -18,19 +18,12 @@
                     00:000
                 </div>
             </div>
-            <div class="timer-field">
-                <div class="timer-view req" id="timer-view2">
-                    00:000
-                </div>
-            </div>
             <!-- 버튼 필드  -->
             <div class="control-field">
                 <!-- 타이머 시작 전 -->
                 <!-- start -->
                 <div class="control-boundary" id="initialized">
-                    <button class="button" data-action="start-setInterval" id="start-setInterval">start-setInterval</button>
-                    <button class="button" data-action="start-requestAnimationFrame" id="start-requestAnimationFrame">start-requestAnimationFrame</button>
-                    <button class="button" data-action="start-all">start-all</button>
+                    <button class="button" data-action="start" >start</button>
                 </div>
                 <!-- 타이머 시작 됐을 때-->
                 <!-- pause / reset / lap -->
@@ -49,9 +42,8 @@
         </div>
         <div class="container">
             <!-- lap -->
-            <div class="lap-field">
-
-            </div>
+            <!-- <div class="lap-field"></div> 태그의 여는 태그와 닫는 태그 사이에 공백이 있으면 firstChild가 " "로 보여지는 이슈 발생  -->
+            <div class="lap-field"></div>
         </div>
     </div>
 
